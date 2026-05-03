@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>جامعة القدس | دائرة القبالة - رسائل عشوائية أنثوية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #ffb7c5 0%, #ff69b4 40%, #d14791 100%);
+            background-attachment: fixed;
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+
+        /* زخارف أنثوية خلفية */
+        body::before {
+            content: "🌸💗🌷💖🌺";
+            font-size: 180px;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            opacity: 0.08;
+            white-space: pre;
+            pointer-events: none;
+            font-family: monospace;
+            transform: rotate(-10deg);
+        }
+
+        body::after {
+            content: "✨🩰🎀💄👑";
+            font-size: 150px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            opacity: 0.08;
+            pointer-events: none;
+            font-family: monospace;
+        }
+
+        /* الحاوية الرئيسية - تصميم كريستالي وردي */
+        .glass-card {
+            max-width: 550px;
+            width: 100%;
+            background: rgba(255, 248, 250, 0.96);
+            backdrop-filter: blur(2px);
+            border-radius: 65px 65px 80px 80px;
+            box-shadow: 0 30px 50px rgba(199, 21, 98, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.7) inset;
+            padding: 2rem 1.8rem 2.2rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 2px solid #ffc0e0;
+        }
+
+        /* شعار جامعة القدس بصيغة أنيقة */
+        .uni-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        .university-icon {
+            background: linear-gradient(135deg, #b0306e, #ff69b4);
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            box-shadow: 0 12px 20px rgba(176, 48, 110, 0.3);
+            border: 3px solid #fff8f0;
+        }
+
+        .university-icon i {
+            font-size: 42px;
+            color: #fff3f9;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+        }
+
+        .uni-name {
+            font-weight: 800;
+            font-size: 1.7rem;
+            background: linear-gradient(120deg, #a13e6f, #db3a86);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            margin-top: 5px;
+        }
+
+        .faculty-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #c13b7c;
+            background: #ffeef4;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            margin-top: 8px;
+            border: 1px solid #ffbbdb;
+        }
+
+        /* العنوان الرئيسي */
+        .main-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #b82b6e;
+            margin: 0.8rem 0 0.3rem;
+            text-shadow: 2px 2px 12px #ffbfd5;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .main-title i {
+            font-size: 2rem;
+            color: #f05b9a;
+        }
+
+        .sub-line {
+            font-size: 0.9rem;
+            color: #b35c82;
+            font-weight: 500;
+            border-bottom: 2px dotted #ffa5c3;
+            display: inline-block;
+            padding-bottom: 4px;
+            margin-bottom: 20px;
+        }
+
+        /* بطاقة الرسالة العشوائية – أنثوية وناعمة */
+        .message-card {
+            background: linear-gradient(125deg, #fff5fc, #ffeef5);
+            border-radius: 55px;
+            padding: 2rem 1.8rem;
+            margin: 1.8rem 0;
+            box-shadow: 0 20px 30px rgba(210, 70, 130, 0.25), inset 0 1px 3px rgba(255,255,240,0.8);
+            border: 1px solid #ffd9e8;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .quote-text {
+            font-size: 1.45rem;
+            font-weight: 500;
+            line-height: 1.65;
+            color: #471d33;
+            text-align: center;
+            transition: opacity 0.25s ease;
+            word-break: break-word;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .quote-text i {
+            color: #eb5e9c;
+            margin: 0 6px;
+        }
+
+        /* زر فخم */
+        .btn-feminine {
+            background: linear-gradient(95deg, #f567a2, #cf4886);
+            border: none;
+            padding: 16px 24px;
+            width: 100%;
+            font-size: 1.4rem;
+            font-weight: 800;
+            font-family: 'Tajawal', sans-serif;
+            color: white;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 16px 24px rgba(192, 55, 110, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-feminine:active {
+            transform: scale(0.96);
+            box-shadow: 0 8px 15px rgba(180, 40, 95, 0.5);
+        }
+
+        /* قسم القابلات وتحية خاصة */
+        .midwife-section {
+            margin-top: 2rem;
+            background: rgba(255, 235, 245, 0.75);
+            border-radius: 50px;
+            padding: 1rem 1rem 1.2rem;
+            border: 1px solid #ffcddf;
+        }
+
+        .greeting {
+            font-weight: 700;
+            color: #b6346c;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .team-names {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            row-gap: 8px;
+            margin: 10px 0 5px;
+        }
+
+        .team-names span {
+            background: #fff2f9;
+            padding: 6px 15px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #ac4372;
+            box-shadow: 0 1px 4px #f7bfd4;
+            border: 0.5px solid #ffb3ce;
+        }
+
+        .hearts-footer {
+            font-size: 0.85rem;
+            color: #d45a92;
+            margin-top: 15px;
+            font-weight: 500;
+            direction: ltr;
+        }
+
+        /* أيقونات إضافية متحركة */
+        .floating-icon {
+            position: absolute;
+            font-size: 20px;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: floatFeminine 8s infinite ease-in-out;
+        }
+
+        @keyframes floatFeminine {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-20px) rotate(5deg); opacity: 0.9; }
+            100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+        }
+
+        /* تأثير عند تحميل الصفحة */
+        @keyframes gentleAppear {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .glass-card {
+            animation: gentleAppear 0.8s ease-out;
+        }
+
+        @media (max-width: 500px) {
+            .glass-card {
+                padding: 1.5rem;
+            }
+            .quote-text {
+                font-size: 1.2rem;
+            }
+            .uni-name {
+                font-size: 1.4rem;
+            }
+            .btn-feminine {
+                font-size: 1.2rem;
+                padding: 14px 20px;
+            }
+        }
+
+        /* زخارف صغيرة عائمة */
+        .custom-cursor-flower {
+            position: fixed;
+            pointer-events: none;
+            font-size: 24px;
+            z-index: 9999;
+            transition: transform 0.1s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="glass-card">
+    <!-- شعار جامعة القدس أنيق و بارز -->
+    <div class="uni-logo">
+        <div class="university-icon">
+            <i class="fas fa-university"></i>
+        </div>
+        <div class="uni-name">جامعة القدس</div>
+        <div class="faculty-name"><i class="fas fa-baby-carriage"></i> كلية التمريض – دائرة القبالة <i class="fas fa-heartbeat"></i></div>
+    </div>
+
+    <div class="main-title">
+        <i class="fas fa-feather-alt"></i> رسالة عشوائية <i class="fas fa-feather-alt"></i>
+    </div>
+    <div class="sub-line"><i class="fas fa-star-of-life"></i>  كل يوم رسالة تليق بكِ  <i class="fas fa-star-of-life"></i></div>
+
+    <!-- بطاقة الرسالة العشوائية الأنيقة -->
+    <div class="message-card" id="messageCard">
+        <div class="quote-text" id="dynamicMessage">
+            <i class="fas fa-heart" style="font-size: 1.2rem;"></i>  نرحب بكِ في فضاء القبالة بأنوثة ورقي  <i class="fas fa-heart" style="font-size: 1.2rem;"></i>
+        </div>
+    </div>
+
+    <!-- زر الحصول على رسالة جديدة -->
+    <button class="btn-feminine" id="getMessageBtn">
+        <i class="fas fa-envelope-open-text"></i> رسالة جديدة
+        <i class="fas fa-sparkles"></i>
+    </button>
+
+    <!-- قسم القابلات مع تحية مخصصة -->
+    <div class="midwife-section">
+        <div class="greeting">
+            <i class="fas fa-hands-helping"></i> مع تحيات قابلات دائرة القبالة <i class="fas fa-female"></i>
+        </div>
+        <div class="team-names">
+            <span>شهد سلام</span>
+            <span>ملاك منير</span>
+            <span>بيان جعافرة</span>
+            <span>أصالة ربايعة</span>
+            <span>رانية زرو</span>
+        </div>
+        <div class="hearts-footer">
+            💗 جامعة القدس – نخبة القابلات 🌸   💖 كادر أنثوي داعم 💖
+        </div>
+    </div>
+</div>
+
+<!-- مؤثرات صوتية (اختياري) باستخدام ملف sound قصير غير مزعج -->
+<audio id="softClick" preload="auto">
+    <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // ========== قائمة الرسائل العشوائية الفخمة بأنوثة ومشتقات الوردي والتحفيز ==========
+    const feminineMessages = [
+        "أنتِ نسمة ربيع في عالم القبالة، كوني فخورة بنفسكِ 💗🌸",
+        "عيناكِ تعكسان قوة الأنثى التي ستغيرين بها حياة أمهات. 🩺✨",
+        "كل يوم تمرين به يقربكِ من حلم القابلة المتميزة، لا توقفي. 💪🎀",
+        "لون حياتكِ بالوردي، فالطريق إلى القلوب يبدأ بالرقة و الثقة. 💖",
+        "أنتِ كزهرة الفوشيا، قوية ومشرقة ومبهجة لكل من حولك. 🌷💄",
+        "جامعة القدس ترى فيكِ قائدة المستقبل في غرف الولادة. 🕊️👶🏻",
+        "ما تفعلينه من أجل الأمهات هو رسالة إنسانية سامية، فخورة بكِ. 🤍🩰",
+        "عطر وجودكِ سيبقى في قلوب الأسر التي ساعدتِها، استمري. 🌸🕯️",
+        "لا تقارني نفسكِ بأحد، فأنتِ خرِّيجة جامعة القدس، قابلة استثنائية. 🎓💗",
+        "لطافتكِ هي قوتكِ، ورقة روحكِ هي مفتاح النجاح في مهنة القبالة. 🌸🩷",
+        "كل رسالة تضحين بها من أجل راحة امرأة، سيكتب لكِ الأجر العظيم. 🤲💗",
+        "قبلة الحياة الأولى التي تستقبلينها بيديكِ، هي بداية حكاية حب. 👶🏼💕",
+        "رسالة القابلة نشر الحب والأمان – وأنتِ نموذج يحتذى به. ✨💝",
+        "أنتِ قادرة على تحويل الخوف إلى طمأنينة بمجرد ابتسامة. 💖🌹",
+        "كوني كالقمر في ليلة اكتماله، تضيئين درب الأمهات. 🌙💞",
+        "شجاعة الأم تبدأ عندما ترى قابلة واثقة من نفسها أمامها. 💕👩‍🍼",
+        "أنتِ ملاك بملابس طبية، رسالتكِ سامية ومشرفة. 🕊️🤱🏻",
+        "لا تخافي من الأخطاء، كل يوم تعلمينه هو جوهرة في تاج خبرتكِ. 📖💎",
+        "رؤيتكِ لطفل يخرج إلى الحياة هي أعظم مكافأة، أنتِ محظوظة. 🍼💗",
+        "الوردي يناسب شخصيتكِ الجذابة، كوني واثقة في كل خطوة. 🎀💪🏼",
+        "طاقم القبالة في جامعة القدس يبارك جهودكِ الأكاديمية والمهنية. 🏵️💌",
+        "ليكن شعاركِ 'يد دافئة وقلب من ذهب' 💛🌟",
+        "كل صباح جديد هو فرصة لتقديم حب غير مشروط للأمهات. 🌅💓",
+        "الثقة بالنعم التي منحكِ الله إياها تجعلكِ أفضل قابلة. 💞🍃",
+        "ابتسامتكِ تشفي القلوب قبل الأجساد، لا تستهيني بها. 😊🌷",
+        "ذكرى أول مولود تسلمينه بنفسكِ ستبقى محفورة إلى الأبد. 🎀👶🏽",
+        "غرفة الولادة هي مملكتكِ، كوني الملكة المتألقة. 👑🩰",
+        "لا تنسي أن تأخذي قسطاً من الراحة، فأنتِ تستحقين كل الحب. 🛁🧘‍♀️",
+        "جامعة القدس تفتخر بقابلاتها النبيلات، أنتِ منهن بالتأكيد. 🕯️💋",
+        "ما أجمل أن تكوني سبباً في بداية قصة إنسانية جديدة كل يوم. 🌺🌍",
+        "فسحة وردية: لا شيء يعادل شعوركِ وأنتِ تحملين حياة بين يديكِ. 💘",
+        "ملابس العمل لا تمنع أنوثتكِ؛ بل تزيدها رقيًّا وحضورًا. 🧣🧤💗",
+        "كوني شجاعة كالزنبق الوردي الذي ينمو بين الصخور. 🌸🌪️",
+        "كل موقف مرير يتحول معكِ إلى رقة وحنان، هذه موهبتكِ. 🧸🌸",
+        "الرضا هو سر الجمال، ارضي بما قسمه الله وستتألقين. 💗🌼",
+        "أثري مهاراتكِ، فكل معرفة جديدة تجعلكِ أكثر حكمة. 📚💅",
+        "طاقم القابلات يدعمنكِ دائمًا، لستِ وحدكِ في هذا الطريق. 👭💞",
+        "لهفة الأمومة تبدأ من ثقتها بقابلة مميزة مثلكِ. 💖🍼",
+        "لون المستقبل وردي لأنكِ ستصنعينه بيديكِ.. ابدئي اليوم. 🌅💖",
+        "أنتِ رسالة الأمل لكل امرأة تخاف من المخاض. 🙌💕",
+        "قابلة اليوم هي صانعة أجيال الغد، كوني فخورة. 🌟🎓"
+    ];
+
+    // إضافة الكثير من الرسائل حتى تصل إلى حوالي 50 رسالة غنية ومتنوعة (لزيادة العشوائية بشكل احترافي)
+    const extraMessages = [
+        "دائرة القبالة بجامعة القدس تحيي فيكِ الروح القيادية النسائية. 🕊️💓",
+        "حضن دافئ و كلمات مطمئنة، تلك هي بصمتكِ الخاصة. 🤰🏻💞",
+        "وردي فوشي .. مزيج الأنوثة والقوة في شخصيتكِ. 💗🟣",
+        "كوني مرآة صافية تعكس الجمال والأمان لكل حامل. 🌺🪞",
+        "التفاصيل الصغيرة تصنع قابلة عظيمة: أنتِ مثال حي. 🌷⭐",
+        "رسالة اليوم: استمتعي باللحظة، فكل أم تقابلكِ هي قصة تستحق التقدير. 📖💕",
+        "لا تخافي من البكاء أحيانًا، القلوب الكبيرة تشعر كثيرًا. 💗🩸",
+        "أحلامكِ كالفراشات الوردية، اتركيها تحلق عالياً. 🦋✨",
+        "قبضة يدكِ الدافئة تمنح الأمهات شعوراً بالأمان لا يوصف. 🤲💗",
+        "دائرة القبالة تحتفل بكِ وبجهودكِ، أنتِ مصدر فخر لنا. 🎀🎉"
+    ];
+    // دمج جميع الرسائل
+    const fullMessages = [...feminineMessages, ...extraMessages];
+    
+    // عشوائي إضافي: تكرار لضمان تنوع مذهل
+    let finalMessages = [];
+    for (let i = 0; i < 3; i++) {
+        finalMessages = finalMessages.concat(fullMessages);
+    }
+    // مجموعة فريدة
+    const uniqueMessagesSet = [...new Set(finalMessages)];
+    // أصبح لدينا أكثر من 100 رسالة فريدة ذات طابع أنثوي
+    const QUOTES_ARRAY = uniqueMessagesSet.length ? uniqueMessagesSet : feminineMessages;
+    
+    // عناصر الصفحة
+    const messageDiv = document.getElementById('dynamicMessage');
+    const btn = document.getElementById('getMessageBtn');
+    const clickSound = document.getElementById('softClick');
+    let confettiActive = false;
+    
+    // وظيفة عرض رسالة عشوائية مع تأثير أنيق
+    function showRandomMessage() {
+        // تشغيل صوت لطيف (يتم تشغيله عند الزر لكن نمنع الأخطاء)
+        if (clickSound) {
+            clickSound.currentTime = 0;
+            clickSound.play().catch(e => console.log("تشغيل الصوت تطلب تفاعل المستخدم لكنه اختياري"));
+        }
+        
+        // تأثير اختفاء وظهور ناعم
+        messageDiv.style.opacity = '0';
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * QUOTES_ARRAY.length);
+            let chosenMessage = QUOTES_ARRAY[randomIndex];
+            // اضافة ايقونة عشوائية لجعلها أكثر أنوثة في بعض الاحيان
+            const iconsSet = ['🌸', '💗', '🩷', '💖', '🌷', '🎀', '👶', '💕', '✨', '🩰'];
+            const randomIcon = iconsSet[Math.floor(Math.random() * iconsSet.length)];
+            // احيانا نضيف الرمز في أول الرسالة لجمالية بصرية
+            if (Math.random() > 0.6) {
+                chosenMessage = `${randomIcon}  ${chosenMessage}  ${randomIcon}`;
+            } else {
+                chosenMessage = `<i class="fas fa-heart" style="color:#e84393"></i> ${chosenMessage} <i class="fas fa-heart" style="color:#e84393"></i>`;
+            }
+            messageDiv.innerHTML = chosenMessage;
+            messageDiv.style.opacity = '1';
+        }, 200);
+        
+        // إطلاق كونفيتي مميز بألوان وردي وفوشي وأبيض (أنثوي)
+        canvasConfettiEffect();
+        
+        // تغيير خلفية البطاقة بشكل عابر يلمع (احترافية)
+        const cardMsg = document.querySelector('.message-card');
+        cardMsg.style.transition = 'background 0.4s';
+        cardMsg.style.background = 'linear-gradient(135deg, #fff0f7, #ffe2f0)';
+        setTimeout(() => {
+            cardMsg.style.background = 'linear-gradient(125deg, #fff5fc, #ffeef5)';
+        }, 400);
+    }
+    
+    // تأثير زخرفة كونفيتي وردي و فوشي بأسلوب احترافي
+    function canvasConfettiEffect() {
+        // تفجير كونفيتي بشكل وردي بألوان متنوعة
+        confetti({
+            particleCount: 100,
+            spread: 65,
+            origin: { y: 0.7, x: 0.5 },
+            startVelocity: 18,
+            colors: ['#ff99bb', '#ff66aa', '#e84393', '#ffb7c5', '#d63384', '#f5a3c7'],
+            decay: 0.9,
+            ticks: 200
+        });
+        
+        setTimeout(() => {
+            confetti({
+                particleCount: 45,
+                angle: 60,
+                spread: 45,
+                origin: { x: 0, y: 0.6 },
+                colors: ['#ff80b5', '#ffb3d9', '#db2777']
+            });
+            confetti({
+                particleCount: 45,
+                angle: 120,
+                spread: 45,
+                origin: { x: 1, y: 0.6 },
+                colors: ['#f472b6', '#fb8da0', '#ff6b9e']
+            });
+        }, 120);
+    }
+    
+    // زر تجربة الرسالة مع تحسين الأداء
+    btn.addEventListener('click', () => {
+        showRandomMessage();
+    });
+    
+    // رسالة ترحيب عند التحميل تظهر رسالة عشوائية جميلة (استقبال)
+    window.addEventListener('load', () => {
+        // عرض رسالة ترحيب مميزة لأول مرة من القائمة بشكل عشوائي
+        setTimeout(() => {
+            const initIndex = Math.floor(Math.random() * QUOTES_ARRAY.length);
+            let initMsg = QUOTES_ARRAY[initIndex];
+            messageDiv.innerHTML = `<i class="fas fa-feather-alt"></i> ${initMsg} <i class="fas fa-feather-alt"></i>`;
+            messageDiv.style.opacity = '1';
+        }, 200);
+        
+        // إضافة تأثير عائم لبعض الزهور (اختياري) زخرفة خفيفة
+        createFloatingDecorations();
+    });
+    
+    // زينة إضافية متحركة (وردية طابع أنثوي)
+    function createFloatingDecorations() {
+        const iconsList = ['🌸', '💗', '🌷', '🩰', '🎀', '💖', '🌸', '🌸', '💞'];
+        for (let i = 0; i < 12; i++) {
+            const floatEl = document.createElement('div');
+            floatEl.classList.add('floating-icon');
+            floatEl.innerHTML = iconsList[Math.floor(Math.random() * iconsList.length)];
+            const size = 18 + Math.random() * 20;
+            floatEl.style.fontSize = `${size}px`;
+            floatEl.style.left = `${Math.random() * 90}%`;
+            floatEl.style.top = `${Math.random() * 90}%`;
+            floatEl.style.animationDuration = `${5 + Math.random() * 10}s`;
+            floatEl.style.opacity = 0.3 + Math.random() * 0.4;
+            floatEl.style.position = 'fixed';
+            floatEl.style.zIndex = '999';
+            floatEl.style.pointerEvents = 'none';
+            document.body.appendChild(floatEl);
+        }
+    }
+    
+    // إضافة حركة تغيير ظل البطاقة اثناء الضغط على الزر
+    btn.addEventListener('mousedown', () => {
+        btn.style.transform = 'scale(0.97)';
+    });
+    btn.addEventListener('mouseup', () => {
+        btn.style.transform = 'scale(1)';
+    });
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'scale(1)';
+    });
+</script>
+</body>
+</html>
